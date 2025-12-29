@@ -1,89 +1,531 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AVI Cloud Kitchen | 100% Pure Veg Paratha</title>
-<meta name="description" content="AVI Cloud Kitchen – 100% Pure Veg homestyle parathas in Jaipur. Order fresh aloo, gobi, paneer parathas on WhatsApp.">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0e0e0e;
-  color: #fff;
-}
-header {
-  text-align: center;
-  padding: 30px 15px;
-}
-header img {
-  max-width: 280px;
-}
-section {
-  padding: 20px;
-}
-h2 {
-  color: #f5c542;
-}
-.menu-item {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px dashed #444;
-  padding: 8px 0;
-}
-button {
-  background: #25D366;
-  color: #fff;
-  border: none;
-  padding: 15px;
-  width: 100%;
-  font-size: 18px;
-  border-radius: 6px;
-  margin-top: 20px;
-}
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-  color: #ccc;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVI Cloud Kitchen | 100% Pure Veg Paratha</title>
+  <meta name="description" content="AVI Cloud Kitchen – 100% Pure Veg homestyle parathas in Jaipur. Order on WhatsApp. Available on Zomato & Swiggy." />
+
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#121212;
+      --text:#ffffff;
+      --muted:#cfcfcf;
+      --gold:#f5c542;
+      --gold2:#ffb000;
+      --green:#25D366;
+      --line:#2a2a2a;
+      --shadow: 0 14px 40px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 50% -100px, rgba(255,176,0,.20), transparent 55%),
+        radial-gradient(900px 500px at 20% 40%, rgba(245,197,66,.12), transparent 60%),
+        radial-gradient(800px 500px at 80% 60%, rgba(37,211,102,.10), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 22px 14px 28px;
+    }
+
+    /* HERO */
+    .hero{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,176,0,.08), rgba(0,0,0,.15));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .hero-inner{
+      padding: 18px 16px 14px;
+      text-align:center;
+    }
+    .logo{
+      width: min(560px, 95%);
+      height:auto;
+      display:block;
+      margin: 6px auto 10px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+    }
+    .tagline{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing:.2px;
+      margin-bottom: 8px;
+    }
+    .tagline b{color:#fff}
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin: 10px 0 8px;
+    }
+    .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      color: #eaeaea;
+      font-size: 14px;
+      font-weight: 600;
+      white-space:nowrap;
+    }
+    .pill .dot{
+      display:inline-block;
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold);
+      margin-right:8px;
+      vertical-align: middle;
+    }
+
+    /* GRID */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background: rgba(18,18,18,.78);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-h{
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background: linear-gradient(90deg, rgba(245,197,66,.22), rgba(0,0,0,0));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .card-h h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .4px;
+    }
+    .card-h small{
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .rows{ padding: 12px 14px 14px; }
+
+    .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px dashed rgba(255,255,255,.14);
+    }
+    .row:last-child{border-bottom:none}
+
+    .item{
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+    }
+    .item .name{
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .item .desc{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25rem;
+      max-width: 42ch;
+    }
+    .price{
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+
+    .note{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(245,197,66,.14);
+      border: 1px solid rgba(245,197,66,.25);
+      color:#fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* COMBO highlight */
+    .combo-title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .heart{
+      width:18px;height:18px;
+      display:inline-block;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.4));
+    }
+
+    /* ORDER BAR */
+    .orderbar{
+      margin-top: 16px;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, rgba(37,211,102,.20), rgba(0,0,0,0));
+      border:1px solid rgba(37,211,102,.28);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .order-left{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .order-left .title{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing:.4px;
+    }
+    .nums{
+      color:#eaeaea;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-decoration:none;
+      background: var(--green);
+      color:#061a0e;
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 0;
+      box-shadow: 0 10px 24px rgba(37,211,102,.22);
+      min-width: 210px;
+    }
+    .btn span{ color:#061a0e }
+    .btn svg{ flex:0 0 auto }
+    .btn:active{ transform: translateY(1px) }
+
+    /* FOOTER STRIP */
+    .strip{
+      margin-top: 14px;
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .addr{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color:#eaeaea;
+      font-weight: 800;
+      line-height:1.35rem;
+    }
+    .addr small{
+      display:block;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* Platform badges (simple) */
+    .platforms{
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .platforms .label{
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .badges{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge{
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
 
-<header>
-  <img src="logo.png" alt="AVI Cloud Kitchen Logo">
-  <h1>AVI Cloud Kitchen</h1>
-  <p>Ghar Jaisa Swad | 100% Pure Veg</p>
-</header>
+    <!-- HERO / LOGO -->
+    <div class="hero">
+      <div class="hero-inner">
+        <!-- Replace logo.png with your actual logo file name -->
+        <img class="logo" src="logo.png" alt="AVI Cloud Kitchen Logo" />
 
-<section>
-  <h2>Parathas</h2>
-  <div class="menu-item"><span>Plain Paratha</span><span>₹50</span></div>
-  <div class="menu-item"><span>Aloo Paratha</span><span>₹75</span></div>
-  <div class="menu-item"><span>Pyaz Paratha</span><span>₹75</span></div>
-  <div class="menu-item"><span>Gobi Paratha</span><span>₹75</span></div>
-  <div class="menu-item"><span>Paneer Pyaz Paratha</span><span>₹90</span></div>
-</section>
+        <div class="tagline">🍽️ <b>Ghar Jaisa Swad</b> • 100% Pure Veg</div>
 
-<section>
-  <h2>Combo Meals</h2>
-  <div class="menu-item"><span>2 Paratha Combo</span><span>₹179</span></div>
-  <div class="menu-item"><span>2 Paneer Paratha Combo</span><span>₹190</span></div>
-</section>
+        <div class="hero-badges">
+          <div class="pill"><span class="dot"></span>Freshly Made Parathas</div>
+          <div class="pill"><span class="dot"></span>Combo Meals Available</div>
+          <div class="pill"><span class="dot"></span>WhatsApp Ordering</div>
+        </div>
+      </div>
+    </div>
 
-<section>
-  <h2>Order Now</h2>
-  <a href="https://wa.me/919784210811" target="_blank">
-    <button>Order on WhatsApp</button>
-  </a>
-</section>
+    <!-- MENU GRID -->
+    <div class="grid">
 
-<footer>
-  <p>📍 25-A, Aman Enclave, Rampura Road, Jaipur</p>
-  <p>📞 9784210811 | 7733054760</p>
-</footer>
+      <!-- LEFT: PARATHAS + CURD -->
+      <div class="card">
+        <div class="card-h">
+          <h2>🫓 PARATHAS</h2>
+          <small>100% Pure Veg</small>
+        </div>
+        <div class="rows">
+          <div class="row">
+            <div class="item">
+              <div class="name">Plain Paratha</div>
+              <div class="desc">Soft, flaky homestyle paratha made with fresh atta.</div>
+            </div>
+            <div class="price">₹50</div>
+          </div>
 
+          <div class="row">
+            <div class="item">
+              <div class="name">Aloo Paratha</div>
+              <div class="desc">Classic stuffed potato paratha, desi spices, pan roasted.</div>
+            </div>
+            <div class="price">₹75</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Pyaz Paratha</div>
+              <div class="desc">Onion paratha with balanced masala for desi taste.</div>
+            </div>
+            <div class="price">₹75</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Gobi Paratha</div>
+              <div class="desc">Fresh grated cauliflower stuffing, hot & flavorful.</div>
+            </div>
+            <div class="price">₹75</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Gobi Pyaz Paratha</div>
+              <div class="desc">Cauliflower + onion stuffing, extra punch of flavor.</div>
+            </div>
+            <div class="price">₹80</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Methi Paratha</div>
+              <div class="desc">Healthy methi paratha made with fresh fenugreek leaves.</div>
+            </div>
+            <div class="price">₹60</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Aloo Pyaz Paratha</div>
+              <div class="desc">Best seller—potato + onion filling, crispy outside.</div>
+            </div>
+            <div class="price">₹80</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Paneer Pyaz Paratha</div>
+              <div class="desc">Fresh paneer + onion stuffing, rich and filling.</div>
+            </div>
+            <div class="price">₹90</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Garlic Paratha</div>
+              <div class="desc">Aromatic garlic paratha with bold desi flavor.</div>
+            </div>
+            <div class="price">₹75</div>
+          </div>
+
+          <div class="note">🔥 Add Ghee or Butter: ₹10 per paratha</div>
+        </div>
+
+        <div class="card-h">
+          <h2>🥣 CURD & RAITA</h2>
+          <small>Fresh & Cooling</small>
+        </div>
+        <div class="rows">
+          <div class="row">
+            <div class="item">
+              <div class="name">Plain Curd</div>
+              <div class="desc">Fresh, thick dahi—perfect with parathas.</div>
+            </div>
+            <div class="price">₹35</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Boondi Raita</div>
+              <div class="desc">Cooling raita with boondi & light masala.</div>
+            </div>
+            <div class="price">₹50</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Veg Raita</div>
+              <div class="desc">Refreshing raita with mixed vegetables.</div>
+            </div>
+            <div class="price">₹60</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: COMBOS -->
+      <div class="card">
+        <div class="card-h">
+          <div class="combo-title">
+            <h2>🍱 COMBO MEALS</h2>
+            <!-- simple heart icon -->
+            <svg class="heart" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 21s-7-4.35-9.5-8.5C.6 9.2 2.2 6 5.7 6c1.8 0 3 .9 3.8 2 0 0 .9-2 3.5-2s3.9 2.2 3.9 4.6C16.9 16.2 12 21 12 21z" fill="#ff4d6d"/>
+            </svg>
+          </div>
+          <small>Most Loved</small>
+        </div>
+
+        <div class="rows">
+          <div class="row">
+            <div class="item">
+              <div class="name">2 Paratha Combo</div>
+              <div class="desc">(Aloo / Gobi / Methi) • Served with fresh dahi + achaar</div>
+            </div>
+            <div class="price">₹179</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">2 Paratha Combo</div>
+              <div class="desc">(Aloo Pyaz / Gobi Pyaz / Methi Pyaz) • Dahi + achaar</div>
+            </div>
+            <div class="price">₹185</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">2 Paneer Pyaz Combo</div>
+              <div class="desc">Two paneer pyaz parathas • Served with dahi + achaar</div>
+            </div>
+            <div class="price">₹190</div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="name">Poori Meal (5 Pieces)</div>
+              <div class="desc">Crispy pooris with sukhi aloo tamatar sabzi</div>
+            </div>
+            <div class="price">₹80</div>
+          </div>
+        </div>
+
+        <!-- Optional: small image on the right card
+             Upload a file like food.png and uncomment below.
+        -->
+        <!--
+        <div style="padding:0 14px 14px;">
+          <img src="food.png" alt="Paratha platter" style="width:100%; border-radius:16px; border:1px solid rgba(255,255,255,.08);">
+        </div>
+        -->
+      </div>
+
+    </div>
+
+    <!-- ORDER BAR -->
+    <div class="orderbar">
+      <div class="order-left">
+        <div class="title">📲 ORDER NOW</div>
+        <div class="nums">Call/WhatsApp: <b>9784210811</b> • <b>7733054760</b></div>
+      </div>
+
+      <!-- WhatsApp link uses first number; change if you want the other -->
+      <a class="btn" href="https://wa.me/919784210811?text=Hi%20AVI%20Cloud%20Kitchen%2C%20I%20want%20to%20order%20parathas." target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 2.7C8.8 2.7 3 8.5 3 15.7c0 2.6.8 5.1 2.1 7.2L4 30l7.3-1.9c2 1.1 4.3 1.7 6.7 1.7 7.2 0 13-5.8 13-13S23.2 2.7 16 2.7z" fill="#061a0e" opacity=".15"/>
+          <path d="M16 4.6c6.1 0 11.1 5 11.1 11.1S22.1 26.8 16 26.8c-2.2 0-4.2-.6-6-1.7l-.4-.2-4.3 1.1 1.1-4.2-.3-.4c-1.1-1.8-1.7-3.9-1.7-6C4.9 9.6 9.9 4.6 16 4.6z" fill="#061a0e" opacity=".2"/>
+          <path d="M23.4 20.2c-.3.9-1.6 1.7-2.2 1.8-.6.1-1.3.2-2.2 0-.5-.1-1.2-.4-2-.8-3.6-1.6-5.9-5.3-6.1-5.6-.2-.3-1.5-2-1.5-3.8s.9-2.7 1.3-3c.3-.3.7-.4 1-.4h.7c.2 0 .5-.1.8.6.3.7 1.1 2.7 1.2 2.9.1.2.1.5 0 .7-.1.2-.2.5-.4.7-.2.2-.4.4-.6.6-.2.2-.4.4-.2.8.2.4.8 1.3 1.6 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.3.7-.2.3.1 1.9.9 2.2 1.1.3.2.6.3.7.5.1.2.1.9-.2 1.8z" fill="#061a0e"/>
+        </svg>
+        <span>Order on WhatsApp</span>
+      </a>
+    </div>
+
+    <!-- ADDRESS + PLATFORMS -->
+    <div class="strip">
+      <div class="addr">
+        <div>📍</div>
+        <div>
+          25-A, Aman Enclave, Rampura Road, Jaipur
+          <small>✅ Available on: Zomato • Swiggy • WhatsApp</small>
+        </div>
+      </div>
+
+      <div class="platforms">
+        <div class="label">We are also available on</div>
+        <div class="badges">
+          <div class="badge">Zomato</div>
+          <div class="badge">Swiggy</div>
+          <div class="badge">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
